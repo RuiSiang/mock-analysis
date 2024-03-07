@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blockchain Analysis Tool</title>
+    <script src="https://unpkg.com/vue@2.6.12/dist/vue.min.js"></script>
+    <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      #app {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+      }
+      .search-container {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      input {
+        flex-grow: 1;
+        padding: 10px;
+        margin-right: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+      button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      li {
+        background-color: #e9ecef;
+        margin-top: 8px;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      .no-tags {
+        color: #999;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="search-container">
+        <input type="text" v-model="searchQuery" placeholder="Enter address" />
+        <button @click="searchAddress">Search</button>
+      </div>
+      <div v-if="tags.length > 0">
+        <ul>
+          <li v-for="tag in tags" :key="tag">{{ tag }}</li>
+        </ul>
+      </div>
+      <div v-else class="no-tags">No tags found</div>
+    </div>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          searchQuery: '',
+          tags: [],
+        },
+        methods: {
+          async searchAddress() {
+            const response = await fetch(
+              `http://localhost:3000/search/${this.searchQuery}`
+            )
+            const data = await response.json()
+            this.tags = data
+          },
+        },
+      })
+    </script>
+  </body>
+</html>
