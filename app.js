@@ -10,7 +10,7 @@ const router = new Router();
 // Mock data: Replace this with your JSON file logic as needed
 const addressTags = JSON.parse(fs.readFileSync('tags.json') || '{}')
 
-app.use(serve(path.join(__dirname, 'public')));
+app.use(serve(path.join(__dirname, 'public'), { cleanUrls: true }));
 
 router.get(['/search/:address', '/analysis/search/:address'], (ctx) => {
   const { address } = ctx.params;
