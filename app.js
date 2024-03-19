@@ -12,7 +12,7 @@ const addressTags = JSON.parse(fs.readFileSync('tags.json') || '{}')
 
 app.use(serve(path.join(__dirname, 'public')));
 
-router.get('/search/:address', (ctx) => {
+router.get(['/search/:address', '/analysis/search/:address'], (ctx) => {
   const { address } = ctx.params;
   ctx.body = addressTags[address] || [];
 });

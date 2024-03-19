@@ -89,9 +89,7 @@
         },
         methods: {
           async searchAddress() {
-            const response = await fetch(
-              `search/${this.searchQuery}`
-            )
+            const response = await fetch(`/analysis/search/${this.searchQuery}`)
             const data = await response.json()
             this.tags = data
           },
