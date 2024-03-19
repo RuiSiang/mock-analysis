@@ -90,7 +90,7 @@
         methods: {
           async searchAddress() {
             const response = await fetch(
-              `http://localhost:3000/search/${this.searchQuery}`
+              `search/${this.searchQuery}`
             )
             const data = await response.json()
             this.tags = data
